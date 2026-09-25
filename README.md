@@ -2,7 +2,7 @@
 
 A premium fragrance brand website featuring an immersive cinematic scroll experience, built with Next.js 16 and modern web technologies.
 
-![LUMÉA](public/frames/frame_0060.jpg)
+![LUMÉA](public/frames/frame_0122.jpg)
 
 ## ✨ Features
 
