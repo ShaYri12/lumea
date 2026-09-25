@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-lumea-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-lumea-sans), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  
+  --color-brand-cream: #FAF7F2;
+  --color-brand-sand: #F3ECE2;
+  --color-brand-stone: #E6DFD6;
+  --color-brand-dark: #10100F;
+  --color-brand-charcoal: #1C1B19;
+  --color-brand-muted: #79736B;
+  --color-brand-gold: #C29F68;
+  --color-brand-sage: #7A8977;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-lumea-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+  background-color: #FAF7F2;
+  color: #1C1B19;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D9D2C7;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B0A2;
+}
+
+/* Typography Helpers */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Editorial letter spacing */
+.tracking-ultra-wide {
+  letter-spacing: 0.28em;
+}
+
+.tracking-widest-luxury {
+  letter-spacing: 0.35em;
+}
