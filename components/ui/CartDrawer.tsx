@@ -1,30 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Trash2, ShieldCheck, Sparkles, ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 
+interface CartItem {
+  size: string;
+  quantity: number;
+  price: number;
+}
+
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  cartCount: number;
-  onUpdateCount: (newCount: number) => void;
-  selectedSize: string;
+  cartItems: CartItem[];
+  onUpdateCart: (items: CartItem[]) => void;
 }
 
 export default function CartDrawer({
   isOpen,
   onClose,
-  cartCount,
-  onUpdateCount,
-  selectedSize,
+  cartItems,
+  onUpdateCart,
 }: CartDrawerProps) {
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [checkedOutSuccess, setCheckedOutSuccess] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = React.useState(false);
+  const [checkedOutSuccess, setCheckedOutSuccess] = React.useState(false);
 
-  const price = selectedSize === "100 ML" ? 260 : 185;
-  const subtotal = cartCount * price;
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
     setIsCheckingOut(true);
@@ -33,10 +37,26 @@ export default function CartDrawer({
       setCheckedOutSuccess(true);
       setTimeout(() => {
         setCheckedOutSuccess(false);
-        onUpdateCount(0);
+        onUpdateCart([]);
         onClose();
       }, 2500);
     }, 1200);
+  };
+
+  const updateItemQuantity = (size: string, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      onUpdateCart(cartItems.filter((item) => item.size !== size));
+    } else {
+      onUpdateCart(
+        cartItems.map((item) =>
+          item.size === size ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    }
+  };
+
+  const removeItem = (size: string) => {
+    onUpdateCart(cartItems.filter((item) => item.size !== size));
   };
 
   return (
@@ -67,7 +87,7 @@ export default function CartDrawer({
                   Your Selection
                 </span>
                 <h2 className="text-xl font-serif font-light text-[#10100F]">
-                  Shopping Bag ({cartCount})
+                  Shopping Bag ({totalItems})
                 </h2>
               </div>
               <button
@@ -82,7 +102,7 @@ export default function CartDrawer({
 
             {/* Bag Items */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {cartCount === 0 ? (
+              {totalItems === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4">
                   <div className="w-16 h-16 rounded-full bg-[#E6DFD6]/50 flex items-center justify-center text-[#79736B]">
                     <Sparkles className="w-6 h-6 stroke-[1.5]" />
@@ -102,63 +122,72 @@ export default function CartDrawer({
                   </button>
                 </div>
               ) : (
-                <div className="space-y-6">
-                  {/* Cart Item Card */}
-                    <div className="p-4 rounded-xl bg-white border border-[#E6DFD6] shadow-sm flex gap-4 items-start">
-                    <div className="w-20 h-24 relative bg-[#F3ECE2] rounded-lg overflow-hidden shrink-0 border border-[#E6DFD6]/70">
-                      <Image
-                        src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=400&q=80"
-                        alt="LUMÉA Eau de Parfum"
-                        fill
-                        className="object-cover object-center"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between min-h-[96px]">
-                      <div>
-                        <div className="flex justify-between items-start">
-                          <h4 className="font-serif text-base text-[#10100F] font-light">
-                            LUMÉA Eau de Parfum
-                          </h4>
-                          <button
-                            type="button"
-                            onClick={() => onUpdateCount(0)}
-                            className="text-[#79736B] hover:text-red-600 transition-colors p-1"
-                            title="Remove"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                        <p className="text-xs text-[#79736B] font-light mt-0.5">
-                          {selectedSize} • Flacon Crystal
-                        </p>
+                <div className="space-y-4">
+                  {/* Cart Items */}
+                  {cartItems.map((item) => (
+                    <div
+                      key={item.size}
+                      className="p-4 rounded-xl bg-white border border-[#E6DFD6] shadow-sm flex gap-4 items-start"
+                    >
+                      <div className="w-20 h-24 relative bg-[#F3ECE2] rounded-lg overflow-hidden shrink-0 border border-[#E6DFD6]/70">
+                        <Image
+                          src="/images/lumea-white-daisy-pedals.png"
+                          alt={`LUMÉA Eau de Parfum ${item.size}`}
+                          fill
+                          className="object-cover object-center"
+                        />
                       </div>
+                      <div className="flex-1 flex flex-col justify-between min-h-[96px]">
+                        <div>
+                          <div className="flex justify-between items-start">
+                            <h4 className="font-serif text-base text-[#10100F] font-light">
+                              LUMÉA Eau de Parfum
+                            </h4>
+                            <button
+                              type="button"
+                              onClick={() => removeItem(item.size)}
+                              className="text-[#79736B] hover:text-red-600 transition-colors p-1"
+                              title="Remove"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                          <p className="text-xs text-[#79736B] font-light mt-0.5">
+                            {item.size} • Flacon Crystal
+                          </p>
+                        </div>
 
-                      <div className="flex justify-between items-center mt-3 pt-2 border-t border-[#F3ECE2]">
-                        <div className="flex items-center space-x-2 border border-[#E6DFD6] rounded-full px-2 py-0.5">
-                          <button
-                            type="button"
-                            onClick={() => onUpdateCount(Math.max(1, cartCount - 1))}
-                            className="text-xs text-[#79736B] hover:text-[#10100F] px-1 font-mono"
-                          >
-                            -
-                          </button>
-                          <span className="text-xs font-medium font-serif px-1">
-                            {cartCount}
+                        <div className="flex justify-between items-center mt-3 pt-2 border-t border-[#F3ECE2]">
+                          <div className="flex items-center space-x-2 border border-[#E6DFD6] rounded-full px-2 py-0.5">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                updateItemQuantity(item.size, item.quantity - 1)
+                              }
+                              className="text-xs text-[#79736B] hover:text-[#10100F] px-1 font-mono"
+                            >
+                              -
+                            </button>
+                            <span className="text-xs font-medium font-serif px-1">
+                              {item.quantity}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                updateItemQuantity(item.size, item.quantity + 1)
+                              }
+                              className="text-xs text-[#79736B] hover:text-[#10100F] px-1 font-mono"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span className="font-serif text-sm font-medium text-[#10100F]">
+                            ${item.price * item.quantity} USD
                           </span>
-                          <button
-                            type="button"
-                            onClick={() => onUpdateCount(cartCount + 1)}
-                            className="text-xs text-[#79736B] hover:text-[#10100F] px-1 font-mono"
-                          >
-                            +
-                          </button>
                         </div>
-                        <span className="font-serif text-sm font-medium text-[#10100F]">
-                          ${subtotal} USD
-                        </span>
                       </div>
                     </div>
-                  </div>
+                  ))}
 
                   {/* Included Perks */}
                   <div className="p-4 rounded-xl bg-[#F3ECE2]/70 border border-[#E6DFD6] space-y-2.5 text-xs text-[#4A4640]">
@@ -176,7 +205,7 @@ export default function CartDrawer({
             </div>
 
             {/* Drawer Footer */}
-            {cartCount > 0 && (
+            {totalItems > 0 && (
               <div className="p-6 bg-white border-t border-[#E6DFD6] space-y-4">
                 <div className="flex justify-between items-baseline">
                   <span className="text-xs uppercase tracking-widest text-[#79736B] font-light">

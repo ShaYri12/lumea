@@ -50,7 +50,7 @@ export default function FAQSection() {
       id="faq"
       className="py-28 sm:py-36 bg-[#F3ECE2] text-[#1C1B19] border-t border-[#E6DFD6]"
     >
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center space-y-4 mb-16 sm:mb-20">
           <motion.div
@@ -97,7 +97,7 @@ export default function FAQSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl border transition-all duration-300 ${
                   isOpen
                     ? "bg-white border-[#C29F68]/70 shadow-sm"
                     : "bg-white/70 border-[#E6DFD6] hover:border-[#C29F68]/40"
@@ -106,24 +106,26 @@ export default function FAQSection() {
                 <button
                   type="button"
                   onClick={() => toggleFAQ(index)}
-                  className="w-full py-6 px-6 sm:px-8 text-left flex items-center justify-between gap-4 cursor-pointer"
+                  className="w-full text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-serif text-lg sm:text-xl font-light text-[#10100F] tracking-wide">
-                    {item.question}
-                  </span>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                      isOpen
-                        ? "bg-[#10100F] text-[#FAF7F2]"
-                        : "bg-[#F3ECE2] text-[#79736B]"
-                    }`}
-                  >
-                    {isOpen ? (
-                      <Minus className="w-3.5 h-3.5" />
-                    ) : (
-                      <Plus className="w-3.5 h-3.5" />
-                    )}
+                  <div className="py-5 px-4 sm:py-6 sm:px-6 lg:px-8 flex items-center gap-4">
+                    <span className="font-serif text-base sm:text-lg lg:text-xl font-light text-[#10100F] tracking-wide flex-1 min-w-0">
+                      {item.question}
+                    </span>
+                    <div
+                      className={`w-8 h-8 min-w-[2rem] rounded-full flex items-center justify-center transition-colors ${
+                        isOpen
+                          ? "bg-[#10100F] text-[#FAF7F2]"
+                          : "bg-[#F3ECE2] text-[#79736B]"
+                      }`}
+                    >
+                      {isOpen ? (
+                        <Minus className="w-3.5 h-3.5" />
+                      ) : (
+                        <Plus className="w-3.5 h-3.5" />
+                      )}
+                    </div>
                   </div>
                 </button>
 
@@ -134,8 +136,9 @@ export default function FAQSection() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="overflow-hidden"
                     >
-                      <div className="px-6 sm:px-8 pb-6 pt-1 text-sm sm:text-base text-[#4A4640] font-light leading-relaxed border-t border-[#F3ECE2]">
+                      <div className="px-4 sm:px-6 lg:px-8 pb-6 pt-1 text-sm sm:text-base text-[#4A4640] font-light leading-relaxed border-t border-[#F3ECE2]">
                         {item.answer}
                       </div>
                     </motion.div>

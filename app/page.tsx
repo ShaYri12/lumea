@@ -12,15 +12,39 @@ import FAQSection from "@/components/sections/FAQSection";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/ui/CartDrawer";
 
+interface CartItem {
+  size: string;
+  quantity: number;
+  price: number;
+}
+
 export default function Home() {
-  const [cartCount, setCartCount] = useState<number>(0);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>("50 ML");
   const [cinematicProgress, setCinematicProgress] = useState(0);
 
+  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   const handleAddToCart = (size: string) => {
-    setSelectedSize(size);
-    setCartCount((prev) => prev + 1);
+    const price = size === "100 ML" ? 260 : 185;
+    
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.size === size);
+      
+      if (existingItem) {
+        // Increment quantity if item exists
+        return prevItems.map((item) =>
+          item.size === size
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // Add new item
+        return [...prevItems, { size, quantity: 1, price }];
+      }
+    });
+    
     setIsCartOpen(true);
   };
 
@@ -28,7 +52,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#FAF7F2] text-[#1C1B19] relative selection:bg-[#C29F68]/20 selection:text-[#10100F]">
       {/* Fixed Luxury Header */}
       <Header
-        cartCount={cartCount}
+        cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
         cinematicComplete={cinematicProgress >= 1}
       />
@@ -65,9 +89,8 @@ export default function Home() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        cartCount={cartCount}
-        onUpdateCount={setCartCount}
-        selectedSize={selectedSize}
+        cartItems={cartItems}
+        onUpdateCart={setCartItems}
       />
     </main>
   );
