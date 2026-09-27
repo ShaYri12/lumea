@@ -118,8 +118,12 @@ export default function BentoGrid() {
               const isDark = layout === "full-bleed";
 
               return (
-                <article
+                <motion.article
                   key={eyebrow}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   className={`group relative flex flex-col justify-between overflow-hidden rounded-[1.35rem] px-5 py-6 transition-transform duration-500 hover:-translate-y-1 md:px-6 md:py-8 ${tone} ${className}`}
                 >
                   {/* =================================================
@@ -142,10 +146,6 @@ export default function BentoGrid() {
                   {/* =================================================
                       SPLIT IMAGE
                   ================================================== */}
-
-                  {/* =================================================
-    SPLIT IMAGE
-================================================= */}
 
                   {image && layout === "split" && (
                     <>
@@ -251,7 +251,7 @@ export default function BentoGrid() {
                       {description}
                     </p>
                   </div>
-                </article>
+                </motion.article>
               );
             },
           )}
