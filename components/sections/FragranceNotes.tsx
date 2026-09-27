@@ -54,9 +54,9 @@ export default function FragranceNotes() {
   return (
     <section
       id="notes"
-      className="py-28 sm:py-36 bg-[#F3ECE2] text-[#1C1B19] border-y border-[#E6DFD6]"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 bg-[#F3ECE2] text-[#1C1B19] border-y border-[#E6DFD6] z-10"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-20">
           <motion.div
@@ -64,9 +64,9 @@ export default function FragranceNotes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#79736B]"
+            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#79736B]"
           >
-            <Sparkles className="w-3 h-3 text-[#C29F68]" />
+            <Sparkles className="w-5 h-5 text-[#D4AF37]" />
             <span>Olfactory Architecture</span>
           </motion.div>
 
@@ -111,10 +111,10 @@ export default function FragranceNotes() {
               <div>
                 {/* Note Level Badge */}
                 <div className="flex items-center justify-between pb-5">
-                  <span className="text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#C29F68]">
+                  <span className="text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#C29F68]">
                     {note.level}
                   </span>
-                  <span className="text-xs font-serif italic text-[#79736B]">
+                  <span className="text-2xl font-serif italic text-[#79736B]">
                     0{index + 1}
                   </span>
                 </div>
@@ -132,10 +132,10 @@ export default function FragranceNotes() {
                 </div>
 
                 {/* Note Details */}
-                <h3 className="mt-6 text-2xl sm:text-3xl font-serif font-light text-[#10100F]">
+                <h3 className="mt-6 text-2xl sm:text-3xl font-serif text-[#10100F]">
                   {note.name}
                 </h3>
-                <p className="mt-1 text-xs font-light text-[#79736B] tracking-wide">
+                <p className="mt-1 text-xs text-[#79736B] tracking-wide">
                   {note.subtitle}
                 </p>
 
@@ -146,14 +146,14 @@ export default function FragranceNotes() {
 
               {/* Ingredients Pills */}
                 <div className="mt-6 pt-5 border-t border-[#F3ECE2]">
-                <span className="text-[9px] uppercase tracking-widest text-[#79736B] block mb-2 font-light">
+                <span className="text-[10px] uppercase tracking-widest text-[#79736B] block mb-2">
                   Key Accords
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {note.ingredients.map((ing) => (
                     <span
                       key={ing}
-                      className="text-[10px] px-2.5 py-1 border border-[#DCD3C7] text-[#4A4640] font-light"
+                      className="text-[11px] px-2.5 py-1 border border-[#DCD3C7] text-[#4A4640]"
                     >
                       {ing}
                     </span>
@@ -170,30 +170,36 @@ export default function FragranceNotes() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="mt-16 border-y border-[#DCD3C7] py-6 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="mt-16 border-y border-[#DCD3C7] py-6 flex flex-wrap items-center justify-between gap-6"
         >
           <div className="flex items-center space-x-3">
-            <Droplets className="w-5 h-5 text-[#C29F68]" />
+            <Droplets className="w-6 h-6 text-[#C29F68]" />
             <div>
-              <span className="text-xs font-serif italic text-[#10100F]">
+              <span className="text-base font-serif italic text-[#10100F]">
                 24% High-Concentration Extrait
               </span>
-              <p className="text-[11px] text-[#79736B]">
+              <p className="text-xs text-[#79736B]">
                 Provides 12+ hours of subtle, evolving sillage
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-6 text-xs text-[#79736B] uppercase tracking-wider font-light">
-            <div className="flex items-center space-x-1.5">
-              <Sun className="w-3.5 h-3.5 text-[#C29F68]" />
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-3 text-xs font-light uppercase tracking-wider text-[#79736B] md:gap-x-6">
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <Sun className="h-5 w-5 shrink-0 text-[#C29F68]" />
               <span>0h - 2h: Bergamot</span>
             </div>
-            <span>•</span>
-            <div>2h - 6h: Jasmine</div>
-            <span>•</span>
-            <div className="flex items-center space-x-1.5">
-              <Moon className="w-3.5 h-3.5 text-[#7A8977]" />
+
+            <span className="shrink-0">•</span>
+
+            <div className="flex items-center whitespace-nowrap">
+              <span>2h - 6h: Jasmine</span>
+            </div>
+
+            <span className="shrink-0">•</span>
+
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <Moon className="h-5 w-5 shrink-0 text-[#7A8977]" />
               <span>6h - 12h+: Warm Musk</span>
             </div>
           </div>

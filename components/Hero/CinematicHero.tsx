@@ -17,7 +17,8 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
 
   const [frame, setFrame] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [isHeroActive, setIsHeroActive] = useState(true);
+  const [isHeroActive, setIsHeroActive] = useState(false); // Start as false to prevent flash
+  const [isMounted, setIsMounted] = useState(false); // Track if component mounted
 
   // For smooth interpolation
   const [smoothFrame, setSmoothFrame] = useState(0);
@@ -142,6 +143,7 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
         const hasScrolledPast = rect.bottom < 0;
 
         setIsHeroActive(visible && !hasScrolledPast);
+        setIsMounted(true); // Mark as mounted after first scroll calculation
 
         /*
          * FRAME CALCULATION WITH HOLD AT END
@@ -196,14 +198,11 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
 
   const introOpacity = Math.max(0, 1 - progress / 0.24);
 
-  const climaxOpacity = Math.min(1, Math.max(0, (progress - 0.4) / 0.25));
+  // End content appears when we reach frame 121 (second to last frame)
+  const endContentOpacity = frame >= 121 ? 1 : 0;
 
-  // Hide END CONTENT as we approach the end of the hero section
-  const endContentOpacity =
-    climaxOpacity * Math.max(0, 1 - (progress - 0.88) / 0.12);
-
-  // Slide in from right: starts at translateX(100px), ends at translateX(0)
-  const endContentTranslateX = 100 * (1 - climaxOpacity);
+  // Slide in from right when frame 121 is reached
+  const endContentTranslateX = frame >= 121 ? 0 : 100;
 
   // =========================================================
   // RENDER
@@ -219,14 +218,17 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
           FIXED CINEMATIC VIEWPORT
       ====================================================== */}
 
-      <div
-        className="fixed inset-0 z-0 h-screen w-screen overflow-hidden bg-[#11130f]"
-        style={{
-          opacity: isHeroActive ? 1 : 0,
-          visibility: isHeroActive ? "visible" : "hidden",
-          pointerEvents: "none",
-        }}
-      >
+      {isMounted && (
+        <div
+          className="fixed inset-0 h-screen w-screen overflow-hidden bg-[#11130f] transition-opacity duration-300"
+          style={{
+            opacity: isHeroActive ? 1 : 0,
+            visibility: isHeroActive ? "visible" : "hidden",
+            display: isHeroActive ? "block" : "none",
+            pointerEvents: "none",
+            zIndex: 1, // Changed from -10 to 1
+          }}
+        >
         {/* ===================================================
             CURRENT FRAME
         ==================================================== */}
@@ -260,19 +262,23 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
           aria-hidden="true"
         />
       </div>
+      )}
 
       {/* =====================================================
           CONTENT OVERLAYS - INTRO & SCROLL (Fixed)
       ====================================================== */}
 
-      <div
-        className="fixed inset-0 z-10 h-screen w-screen overflow-hidden"
-        style={{
-          opacity: isHeroActive ? 1 : 0,
-          visibility: isHeroActive ? "visible" : "hidden",
-          pointerEvents: "none",
-        }}
-      >
+      {isMounted && (
+        <div
+          className="fixed inset-0 h-screen w-screen overflow-hidden transition-opacity duration-300"
+          style={{
+            opacity: isHeroActive ? 1 : 0,
+            visibility: isHeroActive ? "visible" : "hidden",
+            display: isHeroActive ? "block" : "none",
+            pointerEvents: "none",
+            zIndex: 2, // Changed from -5 to 2, above background but below sections
+          }}
+        >
         {/* ===================================================
             INTRO SECTION - Centered hero message
         ==================================================== */}
@@ -281,13 +287,13 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
           style={{
             opacity: introOpacity,
           }}
-          className="absolute inset-0 flex items-center justify-center px-6 text-center"
+          className="absolute left-4 right-4 top-0 bottom-0 flex items-center justify-center text-center"
         >
           <div className="relative">
             {/* Compact glass backdrop - only behind text */}
-            <div className="absolute inset-0 -inset-x-8 -inset-y-12 sm:-inset-x-16 sm:-inset-y-16 bg-gradient-to-b from-black/45 via-black/35 to-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl" />
 
-            <div className="relative z-10 px-6 py-4">
+            <div className="relative z-10 px-6 sm:px-12 py-8 sm:py-12">
               <p
                 className="mb-2 text-xs font-extrabold uppercase tracking-[.38em] text-[#D4AF37] sm:mb-4"
                 style={{
@@ -328,10 +334,10 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
             END CONTENT - Fixed on the frame area
         ==================================================== */}
 
-        <div className="absolute inset-0 flex items-center justify-center px-6">
-          <div className="w-full max-w-7xl mx-auto flex items-center justify-end">
+        <div className="absolute inset-0 flex items-center justify-center px-4 md:px-6">
+          <div className="w-full max-w-7xl mx-auto flex items-center justify-end px-4">
             <div
-              className="max-w-md relative"
+              className="max-w-sm relative w-full"
               style={{
                 opacity: endContentOpacity,
                 visibility:
@@ -394,6 +400,7 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
           </div>
         </div>
       </div>
+      )}
     </section>
   );
 }

@@ -32,7 +32,7 @@ export default function ProductSection({
   return (
     <section
       id="product"
-      className="py-20 sm:py-28 lg:py-36 bg-[#FAF7F2] text-[#1C1B19]"
+      className="relative py-20 sm:py-28 lg:py-36 bg-[#FAF7F2] text-[#1C1B19] z-10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
@@ -57,22 +57,22 @@ export default function ProductSection({
 
               {/* Floating Batch Badge */}
               <div className="absolute top-4 left-4 sm:top-6 sm:left-6 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/50 text-[9px] sm:text-[10px] uppercase tracking-widest text-[#10100F] shadow-sm">
-                Batch No. 042 • Hand-Poured
+                Limited Edition • Artisan Batch
               </div>
 
               {/* Fragrance Concentration Tag */}
               <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-black/40 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-3">
                 <div className="flex-1">
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#E6DFD6]/80 block">
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#fde1bd] block">
                     Concentration
                   </span>
-                  <p className="font-serif text-sm sm:text-lg font-light">Eau de Parfum (24%)</p>
+                  <p className="font-serif text-sm sm:text-lg">Eau de Parfum (24%)</p>
                 </div>
                 <div className="text-right flex-1">
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#E6DFD6]/80 block">
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#fde1bd] block">
                     Origin
                   </span>
-                  <p className="font-serif text-sm sm:text-lg font-light">Grasse, France</p>
+                  <p className="font-serif text-sm sm:text-lg">Grasse, France</p>
                 </div>
               </div>
             </div>
@@ -87,9 +87,9 @@ export default function ProductSection({
               transition={{ duration: 0.8 }}
               className="space-y-3"
             >
-              <div className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#79736B]">
-                <Sparkles className="w-3 h-3 text-[#C29F68]" />
-                <span>The Signature Creation</span>
+              <div className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#79736B]">
+                <Sparkles className="w-5 h-5 text-[#C29F68]" />
+                <span>Born from the Wild</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-light text-[#10100F] tracking-wide">
@@ -108,10 +108,10 @@ export default function ProductSection({
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-sm sm:text-base text-[#4A4640] font-light leading-relaxed"
             >
-              An intimate fragrance born from wild mountain meadows. Opening with
-              vibrant wild bergamot, unfurling into dewy night-blooming white jasmine,
-              and drying down into a warm, sensual skin musk that lingers like a sacred
-              memory.
+              A luminous fragrance inspired by untouched alpine meadows at dawn. 
+              Crisp wild bergamot and fresh green leaves open into a heart of delicate 
+              white daisy petals and night-blooming jasmine, settling into a warm embrace 
+              of sun-warmed cedarwood and clean amber musk.
             </motion.p>
 
             {/* Size Options with Individual Add to Cart */}
@@ -123,18 +123,17 @@ export default function ProductSection({
               className="space-y-3 sm:space-y-4"
             >
               <label className="text-xs uppercase tracking-widest text-[#79736B] block font-light">
-                Select Flacon Size
+                Choose Your Flacon
               </label>
               
               {/* 50 ML Option */}
               <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#E6DFD6] bg-white/50 hover:border-[#C29F68]/40 transition-all space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="font-serif text-lg sm:text-xl lg:text-2xl text-[#10100F]">50 ML</span>
-                      <span className="text-base sm:text-lg lg:text-xl font-serif font-light text-[#10100F]">$185</span>
+                    <div className="flex items-baseline gap-2 text-base md:text-lg text-[#10100F]">
+                      50 ML · $185
                     </div>
-                    <span className="text-xs text-[#79736B] font-light">Travel & Daily</span>
+                    <span className="text-xs text-[#79736B]">Discovery Size</span>
                   </div>
                 </div>
                 
@@ -146,12 +145,12 @@ export default function ProductSection({
                 >
                   {isAdded["50 ML"] ? (
                     <span className="inline-flex items-center justify-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>Added</span>
                     </span>
                   ) : (
                     <span className="inline-flex items-center justify-center gap-2">
-                      <ShoppingBag className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />
+                      <ShoppingBag className="w-4 h-4 stroke-[1.5] shrink-0" />
                       <span>Add to Bag</span>
                     </span>
                   )}
@@ -162,11 +161,10 @@ export default function ProductSection({
               <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#E6DFD6] bg-white/50 hover:border-[#C29F68]/40 transition-all space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="font-serif text-lg sm:text-xl lg:text-2xl text-[#10100F]">100 ML</span>
-                      <span className="text-base sm:text-lg lg:text-xl font-serif font-light text-[#10100F]">$260</span>
+                    <div className="flex items-baseline gap-2 text-base md:text-lg text-[#10100F]">
+                      100 ML · $260
                     </div>
-                    <span className="text-xs text-[#79736B] font-light">Extended Vessel</span>
+                    <span className="text-xs text-[#79736B]">Signature Vessel</span>
                   </div>
                 </div>
                 
@@ -178,20 +176,20 @@ export default function ProductSection({
                 >
                   {isAdded["100 ML"] ? (
                     <span className="inline-flex items-center justify-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>Added</span>
                     </span>
                   ) : (
                     <span className="inline-flex items-center justify-center gap-2">
-                      <ShoppingBag className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />
+                      <ShoppingBag className="w-4 h-4 stroke-[1.5] shrink-0" />
                       <span>Add to Bag</span>
                     </span>
                   )}
                 </button>
               </div>
 
-              <p className="text-center text-xs text-[#79736B] font-light pt-2">
-                *Fictional portfolio preview. Experience our interactive bag drawer.
+              <p className="text-center text-xs text-[#79736B]">
+                Includes complimentary 2 ML sample vial with every order
               </p>
             </motion.div>
 
@@ -205,15 +203,15 @@ export default function ProductSection({
             >
               <div className="flex items-center space-x-2.5">
                 <Truck className="w-4 h-4 text-[#79736B] shrink-0" />
-                <span className="text-xs">Free Carbon-Neutral Express Shipping</span>
+                <span className="text-xs">Complimentary Worldwide Shipping</span>
               </div>
               <div className="flex items-center space-x-2.5">
                 <Sparkles className="w-4 h-4 text-[#C29F68] shrink-0" />
-                <span className="text-xs">Complimentary 2ml Sample Included</span>
+                <span className="text-xs">Free 2 ML Discovery Vial Included</span>
               </div>
               <div className="flex items-center space-x-2.5">
                 <ShieldCheck className="w-4 h-4 text-[#7A8977] shrink-0" />
-                <span className="text-xs">100% Recyclable Luxury Packaging</span>
+                <span className="text-xs">Vegan & Cruelty-Free Formula</span>
               </div>
             </motion.div>
           </div>

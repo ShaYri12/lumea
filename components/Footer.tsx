@@ -29,19 +29,19 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#10100F] text-[#FAF7F2] pt-10 pb-6 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+    <footer className="bg-[#10100F] text-[#FAF7F2] pt-10 pb-6 border-t border-white/10 px-6 sm:px-8">
+      <div className="max-w-[1400px] mx-auto">
         {/* Top Grand Editorial Callout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-10 border-b border-white/10 items-start">
           {/* Brand Manifesto */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-4">
             <h2 className="text-5xl sm:text-7xl font-serif font-light tracking-ultra-wide text-[#FAF7F2]">
               LUMÉA
             </h2>
-            <p className="text-xl sm:text-2xl font-serif italic text-[#C29F68] font-light">
+            <p className="text-xl sm:text-2xl font-medium font-serif italic text-[#C29F68] font-light">
               Born from the wild.
             </p>
-            <p className="text-sm text-[#E6DFD6]/70 font-light leading-relaxed max-w-md">
+            <p className="text-sm text-[#E6DFD6]/90 font-light leading-relaxed max-w-md">
               A tribute to untamed landscapes and untouched flora. Crafted with
               regenerative botanicals in Grasse, France.
             </p>
@@ -49,13 +49,13 @@ export default function Footer() {
 
           {/* Newsletter / Circle Sign-up */}
           <div className="lg:col-span-6 space-y-4">
-            <span className="text-[10px] uppercase tracking-widest-luxury text-[#C29F68] block">
+            <span className="text-xs font-medium uppercase tracking-widest-luxury text-[#C29F68] block">
               The LUMÉA Journal
             </span>
             <h3 className="text-2xl font-serif font-light text-[#FAF7F2]">
               Receive Private Harvest Notices & Notes
             </h3>
-            <p className="text-xs text-[#E6DFD6]/60 font-light">
+            <p className="text-xs text-[#E6DFD6]/75 font-light">
               Be the first to know when limited numbered batches are released.
             </p>
 
@@ -92,10 +92,10 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 py-8 border-b border-white/10">
           {/* Col 1 */}
           <div className="space-y-4">
-            <span className="text-[10px] uppercase tracking-widest-luxury text-[#C29F68] block">
+            <span className="text-xs font-medium uppercase tracking-widest-luxury text-[#C29F68] block">
               Explore
             </span>
-            <ul className="space-y-2.5 text-xs uppercase tracking-wider font-light text-[#E6DFD6]/70">
+            <ul className="space-y-2.5 text-xs uppercase tracking-wider font-light text-[#E6DFD6]/90">
               <li>
                 <button
                   type="button"
@@ -146,10 +146,10 @@ export default function Footer() {
 
           {/* Col 2 */}
           <div className="space-y-4">
-            <span className="text-[10px] uppercase tracking-widest-luxury text-[#C29F68] block">
+            <span className="text-xs font-medium uppercase tracking-widest-luxury text-[#C29F68] block">
               Information
             </span>
-            <ul className="space-y-2.5 text-xs uppercase tracking-wider font-light text-[#E6DFD6]/70">
+            <ul className="space-y-2.5 text-xs uppercase tracking-wider font-light text-[#E6DFD6]/90">
               <li>
                 <button
                   type="button"
@@ -179,10 +179,10 @@ export default function Footer() {
 
           {/* Col 3 */}
           <div className="space-y-4">
-            <span className="text-[10px] uppercase tracking-widest-luxury text-[#C29F68] block">
+            <span className="text-xs font-medium uppercase tracking-widest-luxury text-[#C29F68] block">
               Atelier
             </span>
-            <div className="text-xs text-[#E6DFD6]/70 font-light space-y-1 leading-relaxed">
+            <div className="text-xs text-[#E6DFD6]/90 font-light space-y-1 leading-relaxed">
               <p>Maison LUMÉA</p>
               <p>18 Rue des Capucins</p>
               <p>06130 Grasse, France</p>
@@ -193,7 +193,7 @@ export default function Footer() {
           {/* Col 4 */}
           <div className="space-y-4 flex flex-col justify-between">
             <div>
-              <span className="text-[10px] uppercase tracking-widest-luxury text-[#C29F68] block mb-4">
+              <span className="text-xs font-medium uppercase tracking-widest-luxury text-[#C29F68] block mb-4">
                 Return to Top
               </span>
               <button
@@ -213,7 +213,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Credits & Copyright */}
-        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#E6DFD6]/40 font-light">
+        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#E6DFD6]/75 font-light">
           <p>© {new Date().getFullYear()} LUMÉA Haute Parfumerie. Fictional Portfolio Project.</p>
           <div className="flex items-center space-x-6">
             <span className="hover:text-white transition-colors cursor-pointer">

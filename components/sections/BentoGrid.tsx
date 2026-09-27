@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 
 const cards = [
@@ -54,36 +55,46 @@ export default function BentoGrid() {
     <section
       id="craft"
       aria-labelledby="craft-heading"
-      className="min-h-screen bg-[#242523] px-4 py-16 text-[#292a27] sm:px-8 sm:py-24 lg:px-12"
+      className="relative min-h-screen bg-[#242523] px-4 py-16 text-[#292a27] sm:px-6 sm:py-24 z-10"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1400px]">
         {/* =====================================================
             SECTION HEADER
         ====================================================== */}
 
-        <header className="mb-10 max-w-xl text-[#f5f3ed] sm:mb-14">
-          <div className="mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.28em] text-[#bdbbb4]">
-            <Sparkles
-              className="size-3.5 text-[#d8d5cc]"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
-
+      <div className="max-w-[780px] mx-auto text-center space-y-4 text-[#f5f3ed] mb-16 sm:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#C29F68]"
+          >
+            <Sparkles className="w-5 h-5 text-[#d8d5cc]" />
             <span>The LUMÉA ritual</span>
-          </div>
+          </motion.div>
 
-          <h2
-            id="craft-heading"
-            className="font-serif text-4xl font-light leading-[1.05] tracking-[-0.03em] sm:text-6xl"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl text-[#f5f3ed] font-serif font-light text-[#10100F] tracking-wide"
           >
             The art of a lasting impression.
-          </h2>
+          </motion.h2>
 
-          <p className="mt-5 max-w-md text-sm leading-6 text-[#bebdb7] sm:text-base">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-sm sm:text-base text-[#bebdb7] font-light max-w-xl mx-auto leading-relaxed"
+          >
             A closer look at the details that make every LUMÉA fragrance feel
             personal.
-          </p>
-        </header>
+          </motion.p>
+        </div>
 
         {/* =====================================================
             GRID

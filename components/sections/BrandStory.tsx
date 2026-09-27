@@ -9,9 +9,9 @@ export default function BrandStory() {
   return (
     <section
       id="story"
-      className="py-28 sm:py-36 bg-[#FAF7F2] text-[#1C1B19] overflow-hidden"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 bg-[#FAF7F2] text-[#1C1B19] overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Editorial Narrative Column */}
           <div className="lg:col-span-6 space-y-8">
@@ -20,9 +20,9 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#79736B]"
+              className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#79736B]"
             >
-              <Compass className="w-3 h-3 text-[#C29F68]" />
+              <Compass className="w-5 h-5 text-[#C29F68]" />
               <span>The Origin Story</span>
             </motion.div>
 
@@ -72,24 +72,24 @@ export default function BrandStory() {
             >
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-[#C29F68]">
-                  <Feather className="w-4 h-4 stroke-[1.5]" />
-                  <span className="text-xs uppercase tracking-wider font-medium text-[#10100F]">
+                  <Feather className="w-5 h-5 stroke-[1.5]" />
+                  <span className="text-[13px] uppercase tracking-wider font-medium text-[#10100F]">
                     Wild Harvested
                   </span>
                 </div>
-                <p className="text-xs text-[#79736B] font-light leading-relaxed">
+                <p className="text-[13px] text-[#79736B] font-light leading-relaxed">
                   Botanicals hand-collected following regenerative biodynamic seasons.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-[#7A8977]">
-                  <Award className="w-4 h-4 stroke-[1.5]" />
-                  <span className="text-xs uppercase tracking-wider font-medium text-[#10100F]">
+                  <Award className="w-5 h-5 stroke-[1.5]" />
+                  <span className="text-[13px] uppercase tracking-wider font-medium text-[#10100F]">
                     Grasse Artisan
                   </span>
                 </div>
-                <p className="text-xs text-[#79736B] font-light leading-relaxed">
+                <p className="text-[13px] text-[#79736B] font-light leading-relaxed">
                   Compounded in small limited batches in the historic perfume capital of France.
                 </p>
               </div>
@@ -119,7 +119,7 @@ export default function BrandStory() {
                 <p className="font-serif italic text-base sm:text-lg text-[#FAF7F2] leading-snug">
                   “Fragrance is the invisible garment that speaks directly to memory.”
                 </p>
-                <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-widest text-[#79736B]">
+                <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/70">
                   <span>Atelier LUMÉA</span>
                   <span>Provence, France</span>
                 </div>

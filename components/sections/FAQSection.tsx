@@ -48,7 +48,7 @@ export default function FAQSection() {
   return (
     <section
       id="faq"
-      className="py-28 sm:py-36 bg-[#F3ECE2] text-[#1C1B19] border-t border-[#E6DFD6]"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 bg-[#F3ECE2] text-[#1C1B19] border-t border-[#E6DFD6] z-10"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -58,9 +58,9 @@ export default function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#79736B]"
+            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#79736B]"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-[#C29F68]" />
+            <HelpCircle className="w-5 h-5 text-[#C29F68]" />
             <span>Frequently Inquired</span>
           </motion.div>
 
@@ -110,7 +110,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                 >
                   <div className="py-5 px-4 sm:py-6 sm:px-6 lg:px-8 flex items-center gap-4">
-                    <span className="font-serif text-base sm:text-lg lg:text-xl font-light text-[#10100F] tracking-wide flex-1 min-w-0">
+                    <span className="font-serif text-base sm:text-lg lg:text-xl text-[#10100F] tracking-wide flex-1 min-w-0">
                       {item.question}
                     </span>
                     <div
@@ -121,9 +121,9 @@ export default function FAQSection() {
                       }`}
                     >
                       {isOpen ? (
-                        <Minus className="w-3.5 h-3.5" />
+                        <Minus className="w-4 h-4" />
                       ) : (
-                        <Plus className="w-3.5 h-3.5" />
+                        <Plus className="w-4 h-4" />
                       )}
                     </div>
                   </div>

@@ -9,9 +9,9 @@ export default function IntroSection() {
   return (
     <section
       id="fragrance"
-      className="relative py-28 sm:py-36 bg-[#FAF7F2] text-[#1C1B19] overflow-hidden"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 bg-[#FAF7F2] text-[#1C1B19] overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-24">
           <motion.div
@@ -19,9 +19,9 @@ export default function IntroSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-light tracking-widest-luxury uppercase text-[#79736B]"
+            className="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-medium tracking-widest-luxury uppercase text-[#79736B]"
           >
-            <Sparkles className="w-3 h-3 text-[#C29F68]" />
+            <Sparkles className="w-5 h-5 text-[#D4AF37]" />
             <span>The Olfactory Concept</span>
           </motion.div>
 
