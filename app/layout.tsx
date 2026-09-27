@@ -48,6 +48,14 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${plusJakarta.variable} antialiased scroll-smooth`}
     >
+      <head>
+        {/* Preload critical hero frames for faster initial load */}
+        <link rel="preload" as="image" href="/frames/frame_0000.jpg" fetchPriority="high" />
+        <link rel="preload" as="image" href="/frames/frame_0001.jpg" />
+        <link rel="preload" as="image" href="/frames/frame_0002.jpg" />
+        <link rel="preload" as="image" href="/frames/frame_0003.jpg" />
+        <link rel="preload" as="image" href="/frames/frame_0004.jpg" />
+      </head>
       <body className="min-h-screen bg-[#FAF7F2] text-[#1E1D1B] font-sans selection:bg-[#C29F68]/20 selection:text-[#121211]">
         {children}
       </body>

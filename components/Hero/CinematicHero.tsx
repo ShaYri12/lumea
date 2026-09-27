@@ -19,6 +19,9 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
   const [progress, setProgress] = useState(0);
   const [isHeroActive, setIsHeroActive] = useState(false); // Start as false to prevent flash
   const [isMounted, setIsMounted] = useState(false); // Track if component mounted
+  const [isLoading, setIsLoading] = useState(true); // Loading state for preload
+  const [loadProgress, setLoadProgress] = useState(0); // Loading progress percentage
+  const loadedCount = useRef(0);
 
   // For smooth interpolation
   const [smoothFrame, setSmoothFrame] = useState(0);
@@ -37,31 +40,79 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
   }, [onProgress]);
 
   // =========================================================
-  // PRELOAD ALL FRAMES
+  // PRELOAD FRAMES - PROGRESSIVE LOADING STRATEGY
   // =========================================================
 
   useEffect(() => {
     const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
+    const priorityFrames = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 60, 80, 100, 120, 121, 122]; // Key frames to load first
+    const criticalFrames = [0, 1, 2, 3, 4, 5]; // Frames needed before showing content
+    let criticalLoaded = 0;
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
+    // Function to load a single frame
+    const loadFrame = (i: number, priority: boolean = false) => {
       const image = new Image();
-
+      
+      // Add fetchpriority for critical frames
+      if (priority && i < 10) {
+        image.fetchPriority = 'high';
+      }
+      
       image.src = framePath(i);
 
       image.onload = () => {
         loadedFramesRef.current[i] = image;
+        loadedCount.current++;
 
-        /*
-         * If this is the frame we're currently on,
-         * immediately use the loaded image.
-         */
+        // Track critical frame loading
+        if (criticalFrames.includes(i)) {
+          criticalLoaded++;
+          const progress = (criticalLoaded / criticalFrames.length) * 100;
+          setLoadProgress(progress);
+          
+          // Once all critical frames are loaded, hide loading screen
+          if (criticalLoaded === criticalFrames.length) {
+            setTimeout(() => setIsLoading(false), 300); // Small delay for smooth transition
+          }
+        }
+
+        // If this is the frame we're currently on, immediately use the loaded image
         if (currentFrameRef.current === i && imageRef.current) {
           imageRef.current.src = image.src;
         }
       };
 
+      image.onerror = () => {
+        console.error(`Failed to load frame ${i}`);
+        // Still count as loaded to prevent infinite loading
+        if (criticalFrames.includes(i)) {
+          criticalLoaded++;
+          setLoadProgress((criticalLoaded / criticalFrames.length) * 100);
+          if (criticalLoaded === criticalFrames.length) {
+            setTimeout(() => setIsLoading(false), 300);
+          }
+        }
+      };
+
       images[i] = image;
-    }
+    };
+
+    // Step 1: Load priority frames first (first few frames and key points)
+    priorityFrames.forEach((frameIndex) => {
+      if (frameIndex < TOTAL_FRAMES) {
+        loadFrame(frameIndex, true);
+      }
+    });
+
+    // Step 2: Load remaining frames in batches with slight delay
+    setTimeout(() => {
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        if (!priorityFrames.includes(i)) {
+          // Stagger the loading slightly
+          setTimeout(() => loadFrame(i), Math.floor(i / 10) * 50);
+        }
+      }
+    }, 100);
 
     return () => {
       loadedFramesRef.current = [];
@@ -209,11 +260,89 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
   // =========================================================
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-[460vh] bg-[#11130f]"
-      aria-label="LUMÉA cinematic fragrance film"
-    >
+    <>
+      {/* =====================================================
+          LOADING SCREEN
+      ====================================================== */}
+      {isLoading && (
+        <div
+          className="fixed inset-0 z-[100] bg-[#11130f] flex items-center justify-center transition-opacity duration-500"
+          style={{
+            opacity: isLoading ? 1 : 0,
+            pointerEvents: isLoading ? "auto" : "none",
+          }}
+        >
+          <div className="text-center space-y-8 px-6">
+            {/* Brand Logo */}
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-5xl font-serif tracking-[0.25em] text-[#FAF7F2]">
+                LUMÉA
+              </h1>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-light">
+                Born from the Wild
+              </p>
+            </div>
+
+            {/* Loading Progress Bar */}
+            <div className="w-64 sm:w-80 mx-auto space-y-3">
+              <div className="h-[2px] bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-[#C29F68] to-[#D4AF37] transition-all duration-300 ease-out"
+                  style={{ width: `${loadProgress}%` }}
+                />
+              </div>
+              <p className="text-xs text-[#FAF7F2]/60 font-light tracking-wider">
+                Loading experience... {Math.round(loadProgress)}%
+              </p>
+            </div>
+
+            {/* Subtle Animation */}
+            <div className="flex justify-center gap-1.5">
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#C29F68]"
+                style={{
+                  animation: "pulse 1.5s ease-in-out infinite",
+                  animationDelay: "0s",
+                }}
+              />
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#C29F68]"
+                style={{
+                  animation: "pulse 1.5s ease-in-out infinite",
+                  animationDelay: "0.2s",
+                }}
+              />
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#C29F68]"
+                style={{
+                  animation: "pulse 1.5s ease-in-out infinite",
+                  animationDelay: "0.4s",
+                }}
+              />
+            </div>
+          </div>
+
+          <style jsx>{`
+            @keyframes pulse {
+              0%,
+              100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+              }
+              50% {
+                opacity: 1;
+                transform: scale(1.2);
+              }
+            }
+          `}</style>
+        </div>
+      )}
+
+      <section
+        ref={sectionRef}
+        className="relative h-[460vh] bg-[#11130f]"
+        aria-label="LUMÉA cinematic fragrance film"
+      >
       {/* =====================================================
           FIXED CINEMATIC VIEWPORT
       ====================================================== */}
@@ -239,6 +368,8 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
           alt=""
           aria-hidden="true"
           draggable={false}
+          loading="eager"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
         />
 
@@ -402,5 +533,6 @@ export default function CinematicHero({ onProgress }: CinematicHeroProps) {
       </div>
       )}
     </section>
+    </>
   );
 }

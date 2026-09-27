@@ -136,6 +136,8 @@ export default function BentoGrid() {
                         src={image}
                         alt=""
                         aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
                         className={`absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-105 ${imageStyle}`}
                       />
 
@@ -155,6 +157,8 @@ export default function BentoGrid() {
                           src={image}
                           alt=""
                           aria-hidden="true"
+                          loading="lazy"
+                          decoding="async"
                           className={`size-full ${imageStyle}`}
                         />
 
@@ -167,6 +171,8 @@ export default function BentoGrid() {
                           src={image}
                           alt=""
                           aria-hidden="true"
+                          loading="lazy"
+                          decoding="async"
                           className={`size-full transition-transform duration-700 ease-out group-hover:scale-105 ${imageStyle}`}
                         />
 
@@ -184,6 +190,8 @@ export default function BentoGrid() {
                       src={image}
                       alt=""
                       aria-hidden="true"
+                      loading="lazy"
+                      decoding="async"
                       className={`absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-105 ${imageStyle}`}
                       style={{
                         maskImage:

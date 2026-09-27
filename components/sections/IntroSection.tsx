@@ -62,6 +62,8 @@ export default function IntroSection() {
               src="/images/intro-flowers-garden.png"
               alt="Wild mountain meadow at dawn"
               fill
+              priority
+              quality={85}
               className="object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out"
               sizes="(max-width: 1024px) 100vw, 60vw"
             />
